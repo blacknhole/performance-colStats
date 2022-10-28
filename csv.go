@@ -23,13 +23,17 @@ type statsFunc func([]float64) float64
 
 func csv2float(r io.Reader, column int) ([]float64, error) {
 	cR := csv.NewReader(r)
-	records, err := cR.ReadAll()
-	if err != nil {
-		return nil, fmt.Errorf("Cannot read data from file: %w", err)
-	}
+	cR.ReuseRecord = true
 	column--
 	var data []float64
-	for i, row := range records {
+	for i := 0; ; i++ {
+		row, err := cR.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return nil, fmt.Errorf("Cannot read data from file: %w", err)
+		}
 		if i == 0 {
 			continue
 		}
