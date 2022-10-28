@@ -1,0 +1,6 @@
+goos: darwin
+goarch: arm64
+pkg: pragprog.com/rggo/performance/colStats
+BenchmarkRun-8   	      10	 324857183 ns/op	495567357 B/op	 5041040 allocs/op
+PASS
+ok  	pragprog.com/rggo/performance/colStats	4.052s
